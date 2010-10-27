@@ -188,7 +188,7 @@ class Binstruct
         }
     end
 
-    # Searches a Binstruct, recursing through nested structures as neccessary,
+    # Searches a Binstruct, recursing through nested structures as necessary,
     # and replaces a given object with a new object. Note that this replaces 
     # the object that ==oldthing, so a reference to it is needed first.
     def replace(oldthing, newthing)

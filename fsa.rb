@@ -2,7 +2,7 @@
 # Copyright: Copyright (c) Ben Nagy, 2006-2010.
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
-#
+
 require 'enumerator'
 require 'objhax'
 

@@ -2,7 +2,7 @@
 # Copyright: Copyright (c) Ben Nagy, 2006-2010.
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
-#
+
 require 'socket'
 
 #Establish a 'connection' over raw IP. The OS will provide the
@@ -12,7 +12,6 @@ require 'socket'
 #where that was important, sorry.
 #
 #Parameters: dest_host (string), ip_proto (0-255 or Socket constant)
-
 module CONN_RAWIP
 
     #Set up a new socket.

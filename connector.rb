@@ -1,10 +1,3 @@
-# Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2006-2010.
-# License: The MIT License
-# (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
-#
-require 'thread'
-
 #The Connector class is a generic interface to sending and receiving
 #data from a target. A new connector must be instantiated using a 
 #protocol module, follwed by the arguments required by the module. eg:
@@ -24,6 +17,12 @@ require 'thread'
 #When finished with a Connector object you should call Connector#close, otherwise the
 #receive thread will hang around which can cause large memory leaks if you create many
 #Connectors.
+# ---
+# This file is part of the Metafuzz fuzzing framework.
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2006-2009.
+# License: All components of this framework are licensed under the Common Public License 1.0. 
+# http://www.opensource.org/licenses/cpl1.0.txt
 class Connector
 
     QUEUE_MAXLEN=500000
