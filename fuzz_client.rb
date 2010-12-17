@@ -35,7 +35,7 @@ class FuzzClient < HarnessComponent
         'queue_name'=>'bulk'
     }
 
-    def create_tag( raw_crash, exception_data, opts )
+    def create_tag( raw_crash, exception_data, fuzzbot_options )
         if RUBY_PLATFORM =~ /mswin|mingw/
             # This leaks the local MAC address, but that's prbably a good thing
             # in case we need to track bad cases to a specific box. It's also faster.
@@ -49,7 +49,7 @@ class FuzzClient < HarnessComponent
         end
         digest=Digest::MD5.hexdigest( raw_crash )
         tag=""
-        tag << "FUZZBOT_OPTS:#{opts.join(' ')}\n"
+        tag << "FUZZBOT_OPTS:#{fuzzbot_options.join(' ')}\n"
         tag << "FUZZBOT_CRASH_MD5:#{digest}\n"
         tag << "FUZZBOT_CRASH_DETAIL_MD5:#{Digest::MD5.hexdigest( exception_data )}\n"
         tag << "FUZZBOT_CRASH_CRC32:#{"%x" % Zlib.crc32( raw_crash )}\n"
@@ -74,7 +74,7 @@ class FuzzClient < HarnessComponent
             begin
                 status,exception_data,file_chain=deliver(msg.data,msg.fuzzbot_options)
                 if status=='crash'
-                    our_tag=msg.tag << create_tag( msg.data, exception_data, opts )
+                    our_tag=msg.tag << create_tag( msg.data, exception_data, msg.fuzzbot_options )
                     send_ack(msg.ack_id, 'status'=>status, 'data'=>exception_data, 'chain'=>file_chain, 'crc32'=>msg.crc32, 'tag'=>our_tag)
                 else
                     send_ack(msg.ack_id, 'status'=>status)
