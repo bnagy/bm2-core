@@ -49,7 +49,7 @@ class FuzzClient < HarnessComponent
         end
         digest=Digest::MD5.hexdigest( raw_crash )
         tag=""
-        tag << "FUZZBOT_OPTS:#{fuzzbot_options.join(' ')}\n"
+        tag << "FUZZBOT_OPTS:#{fuzzbot_options.to_a.join(' ')}\n"
         tag << "FUZZBOT_CRASH_MD5:#{digest}\n"
         tag << "FUZZBOT_CRASH_DETAIL_MD5:#{Digest::MD5.hexdigest( exception_data )}\n"
         tag << "FUZZBOT_CRASH_CRC32:#{"%x" % Zlib.crc32( raw_crash )}\n"
