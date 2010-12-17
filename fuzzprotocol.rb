@@ -4,6 +4,7 @@
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
 require File.dirname(__FILE__) + '/objhax'
+require 'socket'
 require 'digest/md5'
 require 'msgpack'
 
