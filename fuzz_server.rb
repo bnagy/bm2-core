@@ -158,6 +158,7 @@ class FuzzServer < HarnessComponent
                         'crashdetail'=>(their_msg.data rescue nil),
                         'crashfile'=>our_stored_msg['data'],
                         'tag'=>their_msg.tag,
+                        'chain'=>their_msg.chain,
                         'crc32'=>our_stored_msg['crc32']
                     )
                 else
