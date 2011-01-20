@@ -71,10 +71,11 @@ class ProductionClient < HarnessComponent
 
     def send_next_case
         if self.class.production_generator.next?
-            test=self.class.production_generator.next
+            test,prodtag=self.class.production_generator.next
             crc=Zlib.crc32(test)
             tag=""
             tag << self.class.base_tag
+            tag << prodtag
             tag << "PRODUCER_CRC32:#{"%x" % crc}\n"
             tag << "PRODUCER_TIMESTAMP:#{Time.now}\n"
             tag << "PRODUCER_ITERATION:#{self.class.case_id+1}\n"
