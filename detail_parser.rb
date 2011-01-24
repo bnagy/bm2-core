@@ -91,6 +91,11 @@ module DetailParser
         ""
     end
 
+    def self.short_desc( detail_string )
+        detail_string.match(/^DESCRIPTION:(.*)$/)[1]
+    rescue
+        ""
+    end
     # In: the !exploitable output as a string
     # Out: !exploitable classification, "UNKNOWN", "PROBABLY EXPLOITABLE" etc
     def self.classification( detail_string )
@@ -111,6 +116,18 @@ module DetailParser
     # Out: !exploitable exception subtype, "READ" or "WRITE" etc
     def self.exception_subtype( detail_string )
         detail_string.match(/^EXCEPTION_SUBTYPE:(.*)$/)[1]
+    rescue
+        ""
+    end
+
+    def self.major_hash( detail_string )
+        detail_string.match(/MAJOR_HASH:(.*)$/)[1]
+    rescue
+        ""
+    end
+
+    def self.minor_hash( detail_string )
+        detail_string.match(/MINOR_HASH:(.*)$/)[1]
     rescue
         ""
     end
