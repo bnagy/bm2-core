@@ -155,6 +155,6 @@ class Detail < BasicObject
     end
 
     def method_missing( meth, *args )
-        DetailParser.send(meth, @detail_string)
+        ::DetailParser.send(meth, @detail_string)
     end
 end
