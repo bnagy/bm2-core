@@ -55,7 +55,8 @@ module DetailParser
     # In: the !exploitable output as a string
     # Out: [[0, "316c5a0e mov eax,dword ptr [eax]"], [1, 
     def self.disassembly( detail_string )
-        instructions=detail_string.scan( /BASIC_BLOCK_INSTRUCTION:(.*)$/ ).flatten
+        instructions=detail_string.match(/:\n(.*)^IDENT/m)[1].split("\n").flatten
+        #instructions=detail_string.scan( /BASIC_BLOCK_INSTRUCTION:(.*)$/ ).flatten
         (0..instructions.length-1).to_a.zip instructions
     rescue
         [] 
