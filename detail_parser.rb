@@ -57,7 +57,7 @@ module DetailParser
     def self.disassembly( detail_string )
         # This is tied to the current debugger output style, which is a bit crap
         # it assumes that u@eip is run just before the !exploitable command.
-        instructions=detail_string.match(/:\n(.*)^IDENT/m)[1].split("\n")
+        instructions=detail_string.match(/:\n(.*?)^IDENT/m)[1].split("\n")
         #instructions=detail_string.scan( /BASIC_BLOCK_INSTRUCTION:(.*)$/ ).flatten
         (0..instructions.length-1).to_a.zip instructions
     rescue
