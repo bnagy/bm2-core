@@ -57,7 +57,7 @@ module DetailParser
     def self.disassembly( detail_string )
         # This is tied to the current debugger output style, which is a bit crap
         # it assumes that kv and u@eip is run just before the !exploitable command.
-        instructions=detail_string.match(/ChildEBP.*:\n(.*?)^IDENT/m)[1].split("\n")
+        instructions=detail_string.match(/DISASSEMBLY_START\n(.*?)^DISASSEMBLY_END/m)[1].split("\n")
         #instructions=detail_string.scan( /BASIC_BLOCK_INSTRUCTION:(.*)$/ ).flatten
         (0..instructions.length-1).to_a.zip instructions
     rescue
@@ -149,9 +149,38 @@ module DetailParser
 end
 
 # Quick wrapper class, for more complex, OO analysis
+
+class RegisterSet < Hash
+
+    def method_missing( meth, *args )
+        self[String(meth)]
+    end
+
+end
+
 class Detail < BasicObject
+
+    attr_reader :registers
+
     def initialize( detail_string )
         @detail_string=detail_string
+        @registers=::RegisterSet[*(::DetailParser.registers(@detail_string).flatten)]
+    end
+
+    def disassembly
+        @disassembly||=::DetailParser.disassembly( @detail_string ).map {|a| a[1]} rescue nil
+    end
+
+    def stack_trace
+        @stack_trace||=::DetailParser.stack_trace( @detail_string ).map {|a| a[1]} rescue nil
+    end
+
+    def affected_registers
+        @affected||=disassembly[0].scan(/e[abcd]x|e[sd]i|e[sb]p/) rescue nil
+    end
+
+    def inspect
+        "#{classification} @ #{disassembly[0].squeeze}"
     end
 
     def method_missing( meth, *args )
